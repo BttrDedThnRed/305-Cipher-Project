@@ -28,6 +28,16 @@ char caesar_encrypt_char(char plain, int key) {
         }
     }
 
+    //Checks if special character
+    else if (plain >= '!' && plain <= ':') {
+        encrypted = (plain + key);
+
+        //Make sure the character is a special character
+        if (encrypted > ':') {
+            encrypted = encrypted - ':' + '!' - 1;
+        }
+    }
+
     return encrypted;
 }
 
@@ -79,6 +89,16 @@ char caesar_decrypt_char(char cipher, int key) {
         //Make sure the character is an upper case letter
         if (unencrypted < 'A') {
             unencrypted = unencrypted + 'Z' - 'A' + 1;
+        }
+    }
+
+    //Checks if special character
+    else if (cipher >= '!' && cipher <= ':') {
+        unencrypted = cipher - key;
+
+        //Make sure the character is a special character
+        if (unencrypted < '!') {
+            unencrypted = unencrypted + ':' - '!' + 1;
         }
     }
 
