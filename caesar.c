@@ -28,6 +28,16 @@ char caesar_encrypt_char(char plain, int key) {
         }
     }
 
+    //Checks if special character
+    else if (plain >= '!' && plain <= ':') {
+        encrypted = (plain + key);
+
+        //Make sure the character is a special character
+        if (encrypted > ':') {
+            encrypted = encrypted - ':' + '!' - 1;
+        }
+    }
+
     return encrypted;
 }
 
@@ -50,5 +60,64 @@ char *caesar_encrypt(char *plain, char *key) {
     }
     
     return encrypted;
+
+}
+
+
+
+
+//Decryption
+char caesar_decrypt_char(char cipher, int key) {
+
+    //Standardize keys
+    key = key % 26;
+    char unencrypted;
+
+    //Checks if lowercase
+    if (cipher >= 'a' && cipher <= 'z') {
+        unencrypted = cipher - key;
+
+        //Make sure the character is a lower case letter
+        if (unencrypted < 'a') {
+            unencrypted = unencrypted + 'z' - 'a' + 1;
+        }
+    }
+    //Checks if uppercase
+    else if (cipher >= 'A' && cipher <= 'Z') {
+        unencrypted = cipher - key;
+
+        //Make sure the character is an upper case letter
+        if (unencrypted < 'A') {
+            unencrypted = unencrypted + 'Z' - 'A' + 1;
+        }
+    }
+
+    //Checks if special character
+    else if (cipher >= '!' && cipher <= ':') {
+        unencrypted = cipher - key;
+
+        //Make sure the character is a special character
+        if (unencrypted < '!') {
+            unencrypted = unencrypted + ':' - '!' + 1;
+        }
+    }
+
+    return unencrypted;
+}
+
+char *caesar_decrypt(char *cipher, char *key) {
+
+    //Allocate memory so we can actually return the unencrypted string
+    char *unencrypted = malloc(sizeof(char) * strlen(cipher));
+
+    //Convert key
+    int intKey = convert_key(key);
+
+    //Unencrypt each character in the string and add it to new string
+    for (int i = 0; i < strlen(cipher); i++) {
+        unencrypted[i] = caesar_decrypt_char(cipher[i], intKey);
+    }
+
+    return unencrypted;
 
 }
