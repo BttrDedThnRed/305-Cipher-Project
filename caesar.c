@@ -3,45 +3,31 @@
 #include <string.h>
 #include "caesar.h"
 
-
+//Encryption
 char caesar_encrypt_char(char plain, int key) {
-    //Standarize keys
-    key = key % 26;
+
+    //Define variables
     char encrypted;
 
     //Checks if lowercase
     if (plain >= 'a' && plain <= 'z') {
-        encrypted = (plain + key);
-
-        //Make sure the character is a lower case letter
-        if (encrypted > 'z') {
-            encrypted = encrypted - 'z' + 'a' - 1;
-        }
+        encrypted = 'a' + ((plain - 'a' + key) % 26);
     }
     //Checks if uppercase
     else if (plain >= 'A' && plain <= 'Z') {
-        encrypted = (plain + key);
-
-        //Make sure the character is an upper case letter
-        if (encrypted > 'Z') {
-            encrypted = encrypted - 'Z' + 'A' - 1;
-        }
+        encrypted = 'A' + ((plain - 'A' + key) % 26);
     }
 
     //Checks if special character
     else if (plain >= '!' && plain <= ':') {
-        encrypted = (plain + key);
-
-        //Make sure the character is a special character
-        if (encrypted > ':') {
-            encrypted = encrypted - ':' + '!' - 1;
-        }
+        encrypted = '!' + ((plain - '!' + key) % 26);
     }
 
     return encrypted;
 }
 
 int convert_key(char *key) {
+
     //atoi turns string literal ints into ints. Ignores non-ints. If passed only non-ints returns 0.
     return atoi(key);
 }
@@ -68,38 +54,21 @@ char *caesar_encrypt(char *plain, char *key) {
 
 //Decryption
 char caesar_decrypt_char(char cipher, int key) {
-
-    //Standardize keys
-    key = key % 26;
+    
+    //Define variables
     char unencrypted;
 
     //Checks if lowercase
     if (cipher >= 'a' && cipher <= 'z') {
-        unencrypted = cipher - key;
-
-        //Make sure the character is a lower case letter
-        if (unencrypted < 'a') {
-            unencrypted = unencrypted + 'z' - 'a' + 1;
-        }
+        unencrypted = (((cipher - 'a' - key) % 26 + 26) % 26) + 'a';
     }
     //Checks if uppercase
     else if (cipher >= 'A' && cipher <= 'Z') {
-        unencrypted = cipher - key;
-
-        //Make sure the character is an upper case letter
-        if (unencrypted < 'A') {
-            unencrypted = unencrypted + 'Z' - 'A' + 1;
-        }
+        unencrypted = (((cipher - 'A' - key) % 26 + 26) % 26) + 'A';
     }
-
     //Checks if special character
     else if (cipher >= '!' && cipher <= ':') {
-        unencrypted = cipher - key;
-
-        //Make sure the character is a special character
-        if (unencrypted < '!') {
-            unencrypted = unencrypted + ':' - '!' + 1;
-        }
+        unencrypted = (((cipher - '!' - key) % 26 + 26) % 26) + '!';
     }
 
     return unencrypted;
@@ -121,3 +90,7 @@ char *caesar_decrypt(char *cipher, char *key) {
     return unencrypted;
 
 }
+
+
+
+
