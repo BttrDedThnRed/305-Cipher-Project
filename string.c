@@ -58,7 +58,7 @@ string* encrypt(cipher c, char *s, char *key) {
 	
 	switch (c) {
 	case CAESAR:
-		str->cipher=caesar_encrypt(s, key);
+		strcpy(str->cipher, caesar_encrypt(s, key));
 		return str;
 		break;
 	
@@ -72,5 +72,36 @@ string* encrypt(cipher c, char *s, char *key) {
 
 char *decrypt_string(cipher c, string *str, char *key) {
 	
+	switch (c) {
+	case CAESAR:
+		strcpy(str->plain, caesar_encrypt(str->cipher, key));
+		return str->plain;
+       		break;
 	
+	case AUGUSTUS:
+	break;
+	
+	case AES:
+	break;
+	}	
+}
+
+char *decrypt(cipher c, string *str, char *key) {
+	
+	switch (c) {
+	case CAESAR:
+		strcpy(str->plain, caesar_encrypt(str->cipher, key));
+	        return str->plain;
+		break;
+
+	case AUGUSTUS:
+	break;
+	
+	case AES:
+	break;
+	}
+}
+
+void print(string *s, string_type st) {
+	while (*string) printf("%02x, *s++);
 }
