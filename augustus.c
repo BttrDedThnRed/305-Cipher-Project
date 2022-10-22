@@ -42,9 +42,11 @@ char *augustus_decrypt(char *cipher, char *key) {
     int left = intKey;
     int digits[strlen(key)];
     char *unencrypted = malloc(sizeof(char) * strlen(cipher));
+    int keyLen = strlen(key);
+    
 
     //First step - Take key and separate each digit
-    for (int i = strlen(key); i != 0; i--) {
+    for (int i = 0; i < strlen(key); i++) {
         digits[i] = left % 10;
         left = left / 10;
     }
