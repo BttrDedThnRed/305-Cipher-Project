@@ -1,6 +1,7 @@
 #include "string.h"
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "caesar.h"
 //allocates memory for and creates new string object
 string *new_plain(char *s, int roundup) {
@@ -103,5 +104,5 @@ char *decrypt(cipher c, string *str, char *key) {
 }
 
 void print(string *s, string_type st) {
-	while (*string) printf("%02x, *s++);
+//	while (*string) printf("%02x, *s++);
 }

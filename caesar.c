@@ -56,7 +56,9 @@ char *caesar_encrypt(char *plain, char *key) {
 
     //Encrypt each character in the string and add it to new string
     for (int i = 0; i < strlen(plain); i++) {
-        encrypted[i] = caesar_encrypt_char(plain[i], intKey);
+	    
+	    encrypted[i] = caesar_encrypt_char(plain[i], intKey);
+
     }
     
     return encrypted;

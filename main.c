@@ -8,7 +8,7 @@ int main(){
 	printf("%d\n", s->len);
 	printf("%d\n",(int)sizeof(string));
 	
-	printf("Encrypted Gusty: %s\n", caesar_encrypt("Gusty", "123"));
+	printf("Encrypted Gusty: %s\n", caesar_encrypt("gusty!#", "24"));
 	//s->print(s, CIPHER);
 	//string *s2 = encrypt_string(CAESAR, "Gusty", "123");
 }
