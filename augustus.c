@@ -11,19 +11,20 @@ char *augustus_encrypt(char *plain, char *key) {
     int left = intKey;
     int digits[strlen(key)];
     char *encrypted = malloc(sizeof(char) * strlen(plain));
+    long double lenKey = strlen(key);
 
     //First step - Run caesar cipher
     char *caesar = caesar_encrypt(plain, key);
 
     //Second step - Take key and separate each digit
-    for (int i = 0; i < strlen(key); i++) {
+    for (int i = (int)lenKey - 1; i != -1; i--) {
         digits[i] = left % 10;
         left = left / 10;
     }
 
     //Final step - Caesar encrypt each char by respective digit
     for (int i = 0; i < strlen(plain); i++) {
-            int x = i % strlen(key);
+            int x = i % (int)(lenKey);
             encrypted[i] = caesar_encrypt_char(caesar[i], digits[x]);
     }
 
@@ -42,18 +43,18 @@ char *augustus_decrypt(char *cipher, char *key) {
     int left = intKey;
     int digits[strlen(key)];
     char *unencrypted = malloc(sizeof(char) * strlen(cipher));
-    int keyLen = strlen(key);
+    long double lenKey = strlen(key);
     
 
     //First step - Take key and separate each digit
-    for (int i = 0; i < strlen(key); i++) {
+    for (int i = (int)lenKey-1; i != -1; i--) {
         digits[i] = left % 10;
         left = left / 10;
     }
     
     //Second step - Decrypt individual chars
     for (int i = 0; i < strlen(cipher); i++) {
-        int x = i % strlen(key);
+        int x = i % (int)(lenKey);
         unencrypted[i] = caesar_decrypt_char(cipher[i], digits[x]);
     }
 
