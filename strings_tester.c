@@ -1,4 +1,6 @@
 #include <stdio.h>
+
+void test_String () {
 int running = 1;
 while (running) {
 	printf("Default keys:\n");
@@ -40,24 +42,24 @@ while (running) {
 
 	printf("\nEnter key (Enter for default: ");
 	char key[120];
+	char *keyP=key;
+
 	fgets(key, 120, stdin);
 	plain[strcspn(plain, "\n")] = '\0';
 	
 	if (strlen(key) == 0) {
 		if (cipherType==c) {
-			cipher=CAESAR;
 			key=1;
 		
 		} 
 		else if (cipherType==au) {
-			cipher=AUGUSTUS;
 			key=12;
-		
-		else if (cipherType==AES) {
-			cipher==AES;
 		}
-
+		else if (cipherType==AES) {
+			
+		}
 	}
+	
 	if (cipherType=="ae") {
 	printf("AES key must be 16 bytes. ") 
 	}
@@ -74,4 +76,5 @@ while (running) {
 	print_C_string(s);
 	b->print(b, PLAIN);
 
-	
+}
+}

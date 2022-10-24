@@ -6,6 +6,7 @@ int main(){
 	string *s=new_plain("gusty",0);
 	printf("%s\n", s->plain);
 	//s->print(s, PLAIN);
+	string *sp = s->encrypt(CAESAR,"gusty","10");
 	string *s2 = encrypt_string(AUGUSTUS, "Gusty", "123");
 	printf("%s\n", s2->cipher);
 	printf("%s\n", s2->plain);
