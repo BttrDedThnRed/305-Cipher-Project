@@ -22,14 +22,45 @@ char caesar_encrypt_char(char plain, int key) {
     else if (plain >= '!' && plain <= ':') {
         encrypted = '!' + ((plain - '!' + key) % 26);
     }
+    //If not any of those return itself
+    else {
+        return plain;   
+    }
 
     return encrypted;
 }
 
 int convert_key(char *key) {
+    
+    //Define variables
+    int boolean;
+    int intKey = key[0];
 
-    //atoi turns string literal ints into ints. Ignores non-ints. If passed only non-ints returns 0.
-    return atoi(key);
+    //Check for an all integer key
+    for (int i = 0; i < strlen(key); i++) {
+        if (key[i] >= '0' && key[i] <= '9') {
+            boolean = 1;
+        }
+        else {
+            boolean = 0;
+            break;
+        }
+    }
+
+    //If key is all integers then return atoi(key). atoi turns string literal ints into ints. Ignores non-ints. If passed only non-ints returns 0.
+    if (boolean == 1) {
+        return atoi(key);
+    }
+
+    //If key is not all integers then xor all characters and return that
+    else {
+        for (int i = 1; i < strlen(key); i++) {
+            intKey = intKey ^ key[i];
+        }
+
+        return intKey;
+    }
+
 }
 
 char *caesar_encrypt(char *plain, char *key) {
@@ -42,9 +73,7 @@ char *caesar_encrypt(char *plain, char *key) {
 
     //Encrypt each character in the string and add it to new string
     for (int i = 0; i < strlen(plain); i++) {
-	    
-	    encrypted[i] = caesar_encrypt_char(plain[i], intKey);
-
+        encrypted[i] = caesar_encrypt_char(plain[i], intKey);
     }
     
     return encrypted;
@@ -71,6 +100,10 @@ char caesar_decrypt_char(char cipher, int key) {
     //Checks if special character
     else if (cipher >= '!' && cipher <= ':') {
         unencrypted = (((cipher - '!' - key) % 26 + 26) % 26) + '!';
+    }
+    //if not any of those return itself
+    else {
+        return cipher;
     }
 
     return unencrypted;
