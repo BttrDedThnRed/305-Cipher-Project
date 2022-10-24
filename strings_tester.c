@@ -74,8 +74,10 @@ int main (int argc, char **argv) {
        		
 	        	
         	string *ms = new_plain(plain, cipher==AES);
-        	printf("\nPlain text string:\n");
-        	ms->print(ms, PLAIN);
+		//printf("%s\n", ms->plain);
+        	
+		printf("\nPlain text string:\n");
+        	//ms->print(ms, PLAIN);
         	string *b = ms->encrypt(cipher, plain, keyP);
         	printf("\nCipher text string:\n");
         	b->print(b, CIPHER);

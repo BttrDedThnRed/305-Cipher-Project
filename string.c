@@ -2,8 +2,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <ctype.h>
 #include "caesar.h"
 #include "augustus.h"
+#include "aes_cbc.h"
 //allocates memory for and creates new string object
 string *new_plain(char *s, int roundup) {
 	
@@ -44,11 +46,39 @@ string *encrypt_string(cipher c, char *s, char *key) {
 		break;
 	
 	case AES:
-		break;
+//char *test = str->plain;
+//			        u_int8_t key[] = key;
+//				        u_int8_t in[20];
+//					        u_int8_t iv[] = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05,0x06, 0x07,0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f };
+//						        memcpy(in, test, 19);
+//							        struct AES_ctx c;
+//								        AES_init_ctx_iv(&c, key, iv);
+//									        AES_CBC_encrypt_buffer(&c, in, 16);
+//											printf("encrypted %s", test);
+//											        for (int i = 0; i < 16; i++){
+//													            printf("%.2x " , in[i]);
+//														            }
+//												        printf("  |  ");
+//													        for (int i = 0; i < 16; i++){
+//															            if (isprint(in[i]))
+//																	                    printf("%c", in[i]);
+//																                }
+//														            else{
+//																                    print(" ");
+//
+//	}
+//															                printf("\n");
+//																	            AES_init_ctx_iv(&c, key, iv);
+//																		                AES_CBC_decrypt_buffer(&c, in, 16);
+//																					printf("decrypted");
+//
+//																					            }
+	    break;
+
 	}
 }
 
-string* encrypt(cipher c, char *s, char *key) {
+string *encrypt(cipher c, char *s, char *key) {
 	
 	string *str=malloc(sizeof(string));
 	str->plain=malloc(sizeof(s));
@@ -97,16 +127,16 @@ char *decrypt(cipher c, string *str, char *key) {
 		break;
 
 	case AUGUSTUS:
-	strcpy(str->plain, augustus_decrypt(str->cipher, key));
-	return str->plain;
-	break;
+		strcpy(str->plain, augustus_decrypt(str->cipher, key));
+		return str->plain;
+		break;
 	
 	case AES:
-	break;
+		break;
 	}
 }
 
-void print(string *s, string_type st) {
+void *print(string *s, string_type st) {
 	printf("1");
 	switch (st) {
 		case PLAIN:
@@ -118,4 +148,25 @@ void print(string *s, string_type st) {
 		break;
 	
 	}
+}
+
+string *encrypt1(cipher c, char *s, char *key) {
+	
+	string *str=malloc(sizeof(string));
+	str->plain=malloc(sizeof(s));
+	strcpy(str->plain, s);
+	
+	switch (c) {
+		case CAESAR:
+			strcpy(str->cipher, caesar_encrypt(s, key));
+			return str;
+			break;
+		case AUGUSTUS:
+			strcpy(str->plain, augustus_encrypt(str->cipher, key));
+			return str;
+			break;
+		case AES:
+			break;
+	}
+
 }
